@@ -2707,7 +2707,7 @@ declare namespace $ {
 
 declare namespace $ {
 
-	export class $bog_calculator_logo extends $mol_icon_molecule {
+	export class $company_template_logo extends $mol_icon_molecule {
 	}
 	
 }
@@ -2853,7 +2853,7 @@ declare namespace $ {
 //# sourceMappingURL=major.view.tree.d.ts.map
 declare namespace $ {
 
-	export class $bog_calculator_button extends $mol_button_major {
+	export class $company_template_button extends $mol_button_major {
 	}
 	
 }
@@ -4374,65 +4374,65 @@ declare namespace $ {
 //# sourceMappingURL=list.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_link_source__uri_bog_calculator_app_1 = $mol_type_enforce<
+	type $mol_link_source__uri_company_template_app_1 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $bog_calculator_button__title_bog_calculator_app_2 = $mol_type_enforce<
+	type $company_template_button__title_company_template_app_2 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $bog_calculator_button['title'] >
+		ReturnType< $company_template_button['title'] >
 	>
-	type $mol_link__title_bog_calculator_app_3 = $mol_type_enforce<
+	type $mol_link__title_company_template_app_3 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_link__uri_bog_calculator_app_4 = $mol_type_enforce<
+	type $mol_link__uri_company_template_app_4 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['uri'] >
 	>
-	type $mol_page__body_bog_calculator_app_5 = $mol_type_enforce<
+	type $mol_page__body_company_template_app_5 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_text__text_bog_calculator_app_6 = $mol_type_enforce<
+	type $mol_text__text_company_template_app_6 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_page__title_bog_calculator_app_7 = $mol_type_enforce<
+	type $mol_page__title_company_template_app_7 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__body_bog_calculator_app_8 = $mol_type_enforce<
+	type $mol_page__body_company_template_app_8 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	export class $bog_calculator_app extends $mol_book2_catalog {
-		Logo2( ): $bog_calculator_logo
+	export class $company_template_app extends $mol_book2_catalog {
+		Logo2( ): $company_template_logo
 		Theme( ): $mol_theme_auto
 		Sources( ): $mol_link_source
 		Lighter( ): $mol_lights_toggle
-		Logout_button( ): $bog_calculator_button
+		Logout_button( ): $company_template_button
 		Docs_uri( ): $mol_link
 		Docs( ): $mol_page
 		Hello( ): $mol_text
 		Page1( ): $mol_page
 		menu_title( ): string
-		Menu_logo( ): ReturnType< $bog_calculator_app['Logo2'] >
+		Menu_logo( ): ReturnType< $company_template_app['Logo2'] >
 		param( ): string
 		plugins( ): readonly(any)[]
 		menu_tools( ): readonly(any)[]
 		menu_foot( ): readonly(any)[]
-		Spread_default( ): ReturnType< $bog_calculator_app['Docs'] >
+		Spread_default( ): ReturnType< $company_template_app['Docs'] >
 		spreads( ): ({ 
-			'hello': ReturnType< $bog_calculator_app['Page1'] >,
+			'hello': ReturnType< $company_template_app['Page1'] >,
 		}) 
 	}
 	

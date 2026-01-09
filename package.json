@@ -1,5 +1,5 @@
 {
-  "name": "bog_calculator_app",
+  "name": "company_template_app",
   "version": "0.0.1",
   "exports": {
     "node": {
@@ -15,9 +15,9 @@
   "browser": "./web.js",
   "types": "./web.d.ts",
   "keywords": [
-    "$bog_calculator_app",
-    "$bog_calculator",
-    "$bog",
+    "$company_template_app",
+    "$company_template",
+    "$company",
     "$mol_book2_catalog",
     "$mol_book2",
     "$mol",
@@ -185,7 +185,7 @@
     "$mol_link",
     "$mol_page",
     "$mol_match",
-    "$bog_calculator_logo",
+    "$company_template_logo",
     "$mol_icon_molecule",
     "$mol_theme_auto",
     "$mol_link_source",
@@ -196,7 +196,7 @@
     "$mol_check",
     "$mol_icon_brightness_4",
     "$mol_icon_brightness",
-    "$bog_calculator_button",
+    "$company_template_button",
     "$mol_button_major",
     "$mol_text_text",
     "$mol_text",

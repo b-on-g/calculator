@@ -7878,14 +7878,14 @@ var $;
 "use strict";
 
 ;
-	($.$bog_calculator_logo) = class $bog_calculator_logo extends ($.$mol_icon_molecule) {};
+	($.$company_template_logo) = class $company_template_logo extends ($.$mol_icon_molecule) {};
 
 
 ;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("bog/calculator/logo/logo.view.css", "[bog_calculator_logo] {\n\tanimation: rotate 4s infinite;\n}\n\n@keyframes rotate {\n\t0% {\n\t\ttransform: rotate(0deg);\n\t}\n\n\t100% {\n\t\ttransform: rotate(360deg);\n\t}\n}\n");
+    $mol_style_attach("company/template/logo/logo.view.css", "[company_template_logo] {\n\tanimation: rotate 4s infinite;\n}\n\n@keyframes rotate {\n\t0% {\n\t\ttransform: rotate(0deg)\n\t}\n\n\t100% {\n\t\ttransform: rotate(360deg)\n\t}\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -8136,7 +8136,7 @@ var $;
 "use strict";
 
 ;
-	($.$bog_calculator_button) = class $bog_calculator_button extends ($.$mol_button_major) {};
+	($.$company_template_button) = class $company_template_button extends ($.$mol_button_major) {};
 
 
 ;
@@ -10777,9 +10777,9 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$bog_calculator_app) = class $bog_calculator_app extends ($.$mol_book2_catalog) {
+	($.$company_template_app) = class $company_template_app extends ($.$mol_book2_catalog) {
 		Logo2(){
-			const obj = new this.$.$bog_calculator_logo();
+			const obj = new this.$.$company_template_logo();
 			return obj;
 		}
 		Theme(){
@@ -10788,7 +10788,7 @@ var $;
 		}
 		Sources(){
 			const obj = new this.$.$mol_link_source();
-			(obj.uri) = () => ("https://github.com/bog/bog_calculator");
+			(obj.uri) = () => ("https://github.com/Lyumih/richtemplate");
 			return obj;
 		}
 		Lighter(){
@@ -10796,14 +10796,14 @@ var $;
 			return obj;
 		}
 		Logout_button(){
-			const obj = new this.$.$bog_calculator_button();
+			const obj = new this.$.$company_template_button();
 			(obj.title) = () => ("Выйти");
 			return obj;
 		}
 		Docs_uri(){
 			const obj = new this.$.$mol_link();
 			(obj.title) = () => ("Демонстрации");
-			(obj.uri) = () => ("http://localhost:9080/bog/calculator/docs/-/test.html");
+			(obj.uri) = () => ("http://localhost:9080/company/template/docs/-/test.html");
 			return obj;
 		}
 		Docs(){
@@ -10813,7 +10813,7 @@ var $;
 		}
 		Hello(){
 			const obj = new this.$.$mol_text();
-			(obj.text) = () => ("# Привет https://mol.hyoo.ru/#!section=docs/=6leyma_5ks814]\nИнструкция по шаблону читай на https://github.com/bog/bog_calculator");
+			(obj.text) = () => ("# Привет https://mol.hyoo.ru/#!section=docs/=6leyma_5ks814]\nИнструкция по шаблону читай на https://github.com/Lyumih/richtemplate");
 			return obj;
 		}
 		Page1(){
@@ -10847,15 +10847,15 @@ var $;
 			return {"hello": (this.Page1())};
 		}
 	};
-	($mol_mem(($.$bog_calculator_app.prototype), "Logo2"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Theme"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Sources"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Lighter"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Logout_button"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Docs_uri"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Docs"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Hello"));
-	($mol_mem(($.$bog_calculator_app.prototype), "Page1"));
+	($mol_mem(($.$company_template_app.prototype), "Logo2"));
+	($mol_mem(($.$company_template_app.prototype), "Theme"));
+	($mol_mem(($.$company_template_app.prototype), "Sources"));
+	($mol_mem(($.$company_template_app.prototype), "Lighter"));
+	($mol_mem(($.$company_template_app.prototype), "Logout_button"));
+	($mol_mem(($.$company_template_app.prototype), "Docs_uri"));
+	($mol_mem(($.$company_template_app.prototype), "Docs"));
+	($mol_mem(($.$company_template_app.prototype), "Hello"));
+	($mol_mem(($.$company_template_app.prototype), "Page1"));
 
 
 ;
