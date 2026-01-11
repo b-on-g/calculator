@@ -6089,6 +6089,295 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_hotkey) = class $mol_hotkey extends ($.$mol_plugin) {
+		keydown(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		event(){
+			return {...(super.event()), "keydown": (next) => (this.keydown(next))};
+		}
+		key(){
+			return {};
+		}
+		mod_ctrl(){
+			return false;
+		}
+		mod_alt(){
+			return false;
+		}
+		mod_shift(){
+			return false;
+		}
+	};
+	($mol_mem(($.$mol_hotkey.prototype), "keydown"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_hotkey extends $.$mol_hotkey {
+            key() {
+                return super.key();
+            }
+            keydown(event) {
+                if (!event)
+                    return;
+                if (event.defaultPrevented)
+                    return;
+                let name = $mol_keyboard_code[event.keyCode];
+                if (this.mod_ctrl() !== (event.ctrlKey || event.metaKey))
+                    return;
+                if (this.mod_alt() !== event.altKey)
+                    return;
+                if (this.mod_shift() !== event.shiftKey)
+                    return;
+                const handle = this.key()[name];
+                if (handle)
+                    handle(event);
+            }
+        }
+        $$.$mol_hotkey = $mol_hotkey;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$mol_string) = class $mol_string extends ($.$mol_view) {
+		selection_watcher(){
+			return null;
+		}
+		error_report(){
+			return null;
+		}
+		disabled(){
+			return false;
+		}
+		value(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		value_changed(next){
+			return (this.value(next));
+		}
+		hint(){
+			return "";
+		}
+		hint_visible(){
+			return (this.hint());
+		}
+		spellcheck(){
+			return true;
+		}
+		autocomplete_native(){
+			return "";
+		}
+		selection_end(){
+			return 0;
+		}
+		selection_start(){
+			return 0;
+		}
+		keyboard(){
+			return "text";
+		}
+		enter(){
+			return "go";
+		}
+		length_max(){
+			return +Infinity;
+		}
+		type(next){
+			if(next !== undefined) return next;
+			return "text";
+		}
+		event_change(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		submit_with_ctrl(){
+			return false;
+		}
+		submit(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Submit(){
+			const obj = new this.$.$mol_hotkey();
+			(obj.mod_ctrl) = () => ((this.submit_with_ctrl()));
+			(obj.key) = () => ({"enter": (next) => (this.submit(next))});
+			return obj;
+		}
+		dom_name(){
+			return "input";
+		}
+		enabled(){
+			return true;
+		}
+		minimal_height(){
+			return 40;
+		}
+		autocomplete(){
+			return false;
+		}
+		selection(next){
+			if(next !== undefined) return next;
+			return [0, 0];
+		}
+		auto(){
+			return [(this.selection_watcher()), (this.error_report())];
+		}
+		field(){
+			return {
+				...(super.field()), 
+				"disabled": (this.disabled()), 
+				"value": (this.value_changed()), 
+				"placeholder": (this.hint_visible()), 
+				"spellcheck": (this.spellcheck()), 
+				"autocomplete": (this.autocomplete_native()), 
+				"selectionEnd": (this.selection_end()), 
+				"selectionStart": (this.selection_start()), 
+				"inputMode": (this.keyboard()), 
+				"enterkeyhint": (this.enter())
+			};
+		}
+		attr(){
+			return {
+				...(super.attr()), 
+				"maxlength": (this.length_max()), 
+				"type": (this.type())
+			};
+		}
+		event(){
+			return {...(super.event()), "input": (next) => (this.event_change(next))};
+		}
+		plugins(){
+			return [(this.Submit())];
+		}
+	};
+	($mol_mem(($.$mol_string.prototype), "value"));
+	($mol_mem(($.$mol_string.prototype), "type"));
+	($mol_mem(($.$mol_string.prototype), "event_change"));
+	($mol_mem(($.$mol_string.prototype), "submit"));
+	($mol_mem(($.$mol_string.prototype), "Submit"));
+	($mol_mem(($.$mol_string.prototype), "selection"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_string extends $.$mol_string {
+            event_change(next) {
+                if (!next)
+                    return;
+                const el = this.dom_node();
+                const from = el.selectionStart;
+                const to = el.selectionEnd;
+                try {
+                    el.value = this.value_changed(el.value);
+                }
+                catch (error) {
+                    const el = this.dom_node();
+                    if (error instanceof Error) {
+                        el.setCustomValidity(error.message);
+                        el.reportValidity();
+                    }
+                    $mol_fail_hidden(error);
+                }
+                if (to === null)
+                    return;
+                el.selectionEnd = to;
+                el.selectionStart = from;
+                this.selection_change(next);
+            }
+            error_report() {
+                try {
+                    if (this.focused())
+                        this.value();
+                }
+                catch (error) {
+                    const el = this.dom_node();
+                    if (error instanceof Error) {
+                        el.setCustomValidity(error.message);
+                        el.reportValidity();
+                    }
+                }
+            }
+            hint_visible() {
+                return (this.enabled() ? this.hint() : '') || ' ';
+            }
+            disabled() {
+                return !this.enabled();
+            }
+            autocomplete_native() {
+                return this.autocomplete() ? 'on' : 'off';
+            }
+            selection_watcher() {
+                return new $mol_dom_listener(this.$.$mol_dom_context.document, 'selectionchange', $mol_wire_async(event => this.selection_change(event)));
+            }
+            selection_change(event) {
+                const el = this.dom_node();
+                if (el !== this.$.$mol_dom_context.document.activeElement)
+                    return;
+                const [from, to] = this.selection([
+                    el.selectionStart,
+                    el.selectionEnd,
+                ]);
+                el.selectionEnd = to;
+                el.selectionStart = from;
+                if (to !== from && el.selectionEnd === el.selectionStart) {
+                    el.selectionEnd = to;
+                }
+            }
+            selection_start() {
+                const el = this.dom_node();
+                if (!this.focused())
+                    return undefined;
+                if (el.selectionStart == null)
+                    return undefined;
+                return this.selection()[0];
+            }
+            selection_end() {
+                const el = this.dom_node();
+                if (!this.focused())
+                    return undefined;
+                if (el.selectionEnd == null)
+                    return undefined;
+                return this.selection()[1];
+            }
+        }
+        __decorate([
+            $mol_action
+        ], $mol_string.prototype, "event_change", null);
+        __decorate([
+            $mol_mem
+        ], $mol_string.prototype, "error_report", null);
+        __decorate([
+            $mol_mem
+        ], $mol_string.prototype, "selection_watcher", null);
+        $$.$mol_string = $mol_string;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/string/string.view.css", "[mol_string] {\n\tbox-sizing: border-box;\n\toutline-offset: 0;\n\tborder: none;\n\tborder-radius: var(--mol_gap_round);\n\twhite-space: pre-line;\n\toverflow: hidden;\n\ttext-overflow: ellipsis;\n\tpadding: var(--mol_gap_text);\n\ttext-align: left;\n\tposition: relative;\n\tfont: inherit;\n\tflex: 1 1 auto;\n\tbackground: transparent;\n\tmin-width: 0;\n\tcolor: inherit;\n\tbackground: var(--mol_theme_field);\n}\n\n[mol_string]:disabled:not(:placeholder-shown) {\n\tbackground-color: transparent;\n\tcolor: var(--mol_theme_text);\n}\n\n[mol_string]:where(:not(:disabled)) {\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_line);\n}\n\n[mol_string]:where(:not(:disabled)):hover {\n\tbox-shadow: inset 0 0 0 2px var(--mol_theme_line);\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_string]:focus {\n\toutline: none;\n\tz-index: var(--mol_layer_focus);\n\tcolor: var(--mol_theme_text);\n\tbox-shadow: inset 0 0 0 1px var(--mol_theme_focus);\n}\n\n[mol_string]::placeholder {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_string]::-ms-clear {\n\tdisplay: none;\n}\n");
+})($ || ($ = {}));
+
+;
 	($.$bog_calculator_app) = class $bog_calculator_app extends ($.$mol_page) {
 		Theme(){
 			const obj = new this.$.$mol_theme_auto();
@@ -6098,8 +6387,143 @@ var $;
 			const obj = new this.$.$mol_lights_toggle();
 			return obj;
 		}
+		display_value(next){
+			if(next !== undefined) return next;
+			return "0";
+		}
+		Display(){
+			const obj = new this.$.$mol_string();
+			(obj.value) = (next) => ((this.display_value(next)));
+			return obj;
+		}
+		Button_AC(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("AC");
+			return obj;
+		}
+		Button_plus_minus(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("±");
+			return obj;
+		}
+		Button_percent(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("%");
+			return obj;
+		}
+		Button_divide(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("÷");
+			return obj;
+		}
+		Button_7(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("7");
+			return obj;
+		}
+		Button_8(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("8");
+			return obj;
+		}
+		Button_9(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("9");
+			return obj;
+		}
+		Button_multiply(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("×");
+			return obj;
+		}
+		Button_4(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("4");
+			return obj;
+		}
+		Button_5(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("5");
+			return obj;
+		}
+		Button_6(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("6");
+			return obj;
+		}
+		Button_minus(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("−");
+			return obj;
+		}
+		Button_1(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("1");
+			return obj;
+		}
+		Button_2(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("2");
+			return obj;
+		}
+		Button_3(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("3");
+			return obj;
+		}
+		Button_plus(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("+");
+			return obj;
+		}
+		Button_0(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("0");
+			return obj;
+		}
+		Button_dot(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => (".");
+			return obj;
+		}
+		Button_equals(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ("=");
+			return obj;
+		}
+		Buttons(){
+			const obj = new this.$.$mol_view();
+			(obj.style) = () => ({
+				"display": "grid", 
+				"gridTemplateColumns": "1fr 1fr 1fr 1fr", 
+				"gap": "1px"
+			});
+			(obj.sub) = () => ([
+				(this.Button_AC()), 
+				(this.Button_plus_minus()), 
+				(this.Button_percent()), 
+				(this.Button_divide()), 
+				(this.Button_7()), 
+				(this.Button_8()), 
+				(this.Button_9()), 
+				(this.Button_multiply()), 
+				(this.Button_4()), 
+				(this.Button_5()), 
+				(this.Button_6()), 
+				(this.Button_minus()), 
+				(this.Button_1()), 
+				(this.Button_2()), 
+				(this.Button_3()), 
+				(this.Button_plus()), 
+				(this.Button_0()), 
+				(this.Button_dot()), 
+				(this.Button_equals())
+			]);
+			return obj;
+		}
 		Calculator(){
 			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Display()), (this.Buttons())]);
 			return obj;
 		}
 		title(){
@@ -6117,6 +6541,28 @@ var $;
 	};
 	($mol_mem(($.$bog_calculator_app.prototype), "Theme"));
 	($mol_mem(($.$bog_calculator_app.prototype), "Lights"));
+	($mol_mem(($.$bog_calculator_app.prototype), "display_value"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Display"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_AC"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_plus_minus"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_percent"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_divide"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_7"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_8"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_9"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_multiply"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_4"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_5"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_6"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_minus"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_1"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_2"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_3"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_plus"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_0"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_dot"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Button_equals"));
+	($mol_mem(($.$bog_calculator_app.prototype), "Buttons"));
 	($mol_mem(($.$bog_calculator_app.prototype), "Calculator"));
 
 
@@ -6130,9 +6576,6 @@ var $;
     var $$;
     (function ($$) {
         class $bog_calculator_app extends $.$bog_calculator_app {
-            menu_title() {
-                return "Моя компания 8";
-            }
         }
         $$.$bog_calculator_app = $bog_calculator_app;
     })($$ = $.$$ || ($.$$ = {}));

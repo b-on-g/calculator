@@ -121,6 +121,49 @@ $mol_lights_toggle $mol_check_icon
 	hint @ \Toggle lights
 	checked? <=> lights? false
 
+$mol_hotkey $mol_plugin
+	event *
+		^
+		keydown?event <=> keydown?event null
+	key *
+	mod_ctrl false
+	mod_alt false
+	mod_shift false
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	minimal_height 40
+	autocomplete false
+	selection? /number
+		0
+		0
+	auto /
+		<= selection_watcher null
+		<= error_report null
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed? <=> value? \
+		placeholder <= hint_visible <= hint \
+		spellcheck <= spellcheck true
+		autocomplete <= autocomplete_native \
+		selectionEnd <= selection_end 0
+		selectionStart <= selection_start 0
+		inputMode <= keyboard \text
+		enterkeyhint <= enter \go
+	attr *
+		^
+		maxlength <= length_max +Infinity
+		type <= type? \text
+	event *
+		^
+		input?event <=> event_change?event null
+	plugins /
+		<= Submit $mol_hotkey
+			mod_ctrl <= submit_with_ctrl false
+			key * enter?event <=> submit?event null
+
 $bog_calculator_app $mol_page
 	title @ \ Main
 	plugins /
@@ -129,3 +172,32 @@ $bog_calculator_app $mol_page
 		<= Lights $mol_lights_toggle
 	body /
 		<= Calculator $mol_view
+			sub /
+				<= Display $mol_string
+					value? <=> display_value? \0
+				<= Buttons $mol_view
+					style *
+						display \grid
+						gridTemplateColumns \1fr 1fr 1fr 1fr
+						gap \1px
+					sub /
+						<= Button_AC $mol_button_minor title \AC
+						<= Button_plus_minus $mol_button_minor title \±
+						<= Button_percent $mol_button_minor title \%
+						<= Button_divide $mol_button_minor title \÷
+						<= Button_7 $mol_button_minor title \7
+						<= Button_8 $mol_button_minor title \8
+						<= Button_9 $mol_button_minor title \9
+						<= Button_multiply $mol_button_minor title \×
+						<= Button_4 $mol_button_minor title \4
+						<= Button_5 $mol_button_minor title \5
+						<= Button_6 $mol_button_minor title \6
+						<= Button_minus $mol_button_minor title \−
+						<= Button_1 $mol_button_minor title \1
+						<= Button_2 $mol_button_minor title \2
+						<= Button_3 $mol_button_minor title \3
+						<= Button_plus $mol_button_minor title \+
+						<= Button_0 $mol_button_minor 
+							title \0
+						<= Button_dot $mol_button_minor title \.
+						<= Button_equals $mol_button_minor title \=
