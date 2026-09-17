@@ -173,7 +173,8 @@
     "$mol_svg_path",
     "$mol_locale",
     "$mol_string",
-    "$mol_hotkey"
+    "$mol_hotkey",
+    "$mol_hotkey2"
   ],
   "dependencies": {
     "autoinstall": "*",
